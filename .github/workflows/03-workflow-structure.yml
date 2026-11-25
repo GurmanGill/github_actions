@@ -50,3 +50,9 @@ jobs:
                 echo "Application: $APP_NAME"
                 git log -1
                 ls -la
+
+            - name: Execute python script
+              working-directory: scripts
+              run: |
+                pwd
+                python hello.py
