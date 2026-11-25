@@ -1,0 +1,36 @@
+name: Job Outputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.config.outputs.version }}
+      environment: ${{ steps.config.outputs.environment }}
+      deploy: ${{ steps.config.outputs.deploy }}
+
+    steps:
+      - name: Generate configuration
+        id: config
+        run: |
+          echo "version=1.0.$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "environment=dev" >> "$GITHUB_OUTPUT"
+          echo "deploy=true" >> "$GITHUB_OUTPUT"
+
+  consume:
+    runs-on: ubuntu-latest
+    needs: generate
+
+    steps:
+      - name: Read configuration
+        env:
+          VERSION: ${{ needs.generate.outputs.version }}
+          ENVIRONMENT: ${{ needs.generate.outputs.environment }}
+          DEPLOY: ${{ needs.generate.outputs.deploy }}
+        run: |
+          echo "Version: $VERSION"
+          echo "Environment: $ENVIRONMENT"
+          echo "Deploy: $DEPLOY"
