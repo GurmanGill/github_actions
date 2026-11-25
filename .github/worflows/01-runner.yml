@@ -1,0 +1,32 @@
+name: Runner Fundamentals
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect-runner: 
+    runs_on: ubuntu-latest
+
+    steps:
+      - name: Inspect system
+        run: |
+          whoami
+          hostname
+          pwd
+          uname -a
+
+      - name: Inspect Resources
+        run: |
+          nproc
+          free -h
+          df -h
+      
+      - name: Inspect Software
+        run: |
+          python --version
+          git --version
+
+      - name: Inspect workspace
+        run: |
+          echo "$GITHUB_WORKSPACE"
+          ls -la
