@@ -1,0 +1,17 @@
+name: Schedule Execution
+
+on:
+    schedule:
+        - cron: "0 6 * * *"
+
+    workflow_disptach:
+
+jobs:
+    execute:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Print execution time
+              run: |
+                date -u
+                echo "Event: $GITHUB_EVENT_NAME"
