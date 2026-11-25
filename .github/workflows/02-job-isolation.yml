@@ -4,6 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  variables:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Variable
+        run: |
+          export CITY=Toronto
+          echo "City: $CITY"
+
+      - name: Read Variable
+        run: |
+          echo "City: $CITY"
+
   create-file:
     runs-on: ubuntu-latest
 
