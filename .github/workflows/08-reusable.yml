@@ -1,5 +1,8 @@
 name: Reusable Workflow
 
+on:
+  workflow_call:
+
 jobs:
     execute:
         runs-on: ubuntu-latest
