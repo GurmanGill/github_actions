@@ -26,3 +26,24 @@ jobs:
             - name: Check variable again
               run: |
                 echo "Log level: $LOG_LEVEL"
+
+            - name: Read repository variables
+              env:
+                APP_VERSION: ${{ vars.APP_VERSION }}
+                TARGET_ENV: ${{ vars.TARGET_ENV }}
+                BATCH_SIZE: ${{ vars.BATCH_SIZE }}
+              run: |
+                echo "Version: $APP_VERSION"
+                echo "Environment: $TARGET_ENV"
+                echo "Batch size: $BATCH_SIZE"
+
+            - name: Validate secret availability
+              env:
+                API_KEY: ${{ secrets.API_KEY }}
+              run: |
+                if [ -n "$API_KEY" ]; then
+                    echo "API key is available"
+                else
+                    echo "API key is missing"
+                    exit 1
+                fi
