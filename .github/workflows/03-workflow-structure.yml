@@ -1,0 +1,52 @@
+name: Workflow structure
+
+run-name: Structure validation by ${{ github.actor }}
+
+on:
+    workflow_dispatch:
+
+permissions: 
+    contents: read
+
+env: 
+    APP_NAME: github-actions-lab
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+    python-validation:
+        name: Python Validation
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.12"
+
+            - name: Validate enviornment
+              run: |
+                echo "Application: $APP_NAME"
+                python --version
+                pwd
+
+    repository-validation:
+        name: Repository Validation
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Inspect repository
+              run: | 
+                echo "Application: $APP_NAME"
+                git log -1
+                ls -la
