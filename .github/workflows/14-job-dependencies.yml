@@ -17,9 +17,7 @@ jobs:
 
     steps:
       - name: Run tests
-        run: |
-          sleep 10
-          echo "Tests completed"
+        run: exit 1
 
   lint:
     runs-on: ubuntu-latest
