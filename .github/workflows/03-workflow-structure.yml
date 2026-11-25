@@ -17,6 +17,7 @@ defaults:
 
 jobs:
     python-validation:
+        name: Python Validation
         runs-on: ubuntu-latest
         timeout-minutes: 5
 
