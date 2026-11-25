@@ -3,7 +3,7 @@ name: Manual Execution
 run-name: Execute on ${{ inputs.environment }}
 
 on:
-    workflow-dispatch:
+    workflow_dispatch:
         inputs:
             environment:
                 description: Select environment
