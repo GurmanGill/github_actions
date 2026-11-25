@@ -1,0 +1,18 @@
+name: Workflow Chain
+
+on:
+    workflow_run:
+        workflows:
+            - "Manual Execution"
+        types:
+            - completed
+
+jobs:
+    process: 
+        runs-on: ubuntu-latest
+
+        if: ${{ github.event.workflow_run.conclusion == 'succcess' }}
+
+        steps:
+            - name: Process successfull execution
+              run: echo "Preivious workflow completed successfully"
