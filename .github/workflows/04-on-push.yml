@@ -1,0 +1,17 @@
+on:
+    push: 
+        branches:
+            - main
+            - "feature/**"
+
+jobs:
+    inspect:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Inspect event
+              run: |
+                echo "Event: $GITHUB_EVENT_NAME"
+                echo "Branch: $GITHUB_REF_NAME"
+                echo "Commit: $GITHUB_SHA"
+                echo "Actor: $GITHUB_ACTOR"
