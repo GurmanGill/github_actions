@@ -30,3 +30,12 @@ jobs:
         run: |
           echo "$GITHUB_WORKSPACE"
           ls -la
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Inspect respositary
+        run: | 
+          pwd
+          ls -la
+          git log -1
