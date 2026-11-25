@@ -12,7 +12,7 @@ jobs:
               id: config
               run: |
                 echo "version=1.0.0" >> $GITHUB_OUTPUT
-                echo "environment=dev" >> $GITHUB_OUPUT
+                echo "environment=dev" >> $GITHUB_OUTPUT
                 echo "deploy=true" >> $GITHUB_OUTPUT
 
             - name: Read configuration
