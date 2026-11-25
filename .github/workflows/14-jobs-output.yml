@@ -34,3 +34,13 @@ jobs:
           echo "Version: $VERSION"
           echo "Environment: $ENVIRONMENT"
           echo "Deploy: $DEPLOY"
+
+  deploy:
+        runs-on: ubuntu-latest
+        needs: generate
+
+        if: ${{ needs.generate.outputs.deploy == 'true' }}
+
+        steps:
+        - name: Deploy application
+          run: echo "Deploying application"
