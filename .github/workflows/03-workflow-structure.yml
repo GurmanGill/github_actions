@@ -56,3 +56,10 @@ jobs:
               run: |
                 pwd
                 python hello.py
+
+            - name: Simulate failure
+              continue-on-error: True
+              run: exit 1
+
+            - name: Final step
+              run: echo "Execution completed"
