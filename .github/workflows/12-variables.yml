@@ -1,0 +1,28 @@
+name: Variables and Contexts
+
+on:
+    workflow_dispatch:
+
+env:
+    APP_NAME: github-actions
+    LOG_LEVEL: info
+
+jobs:
+    inspect:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Workflow and job variables
+              run: |
+                echo "Application: $APP_NAME"
+                echo "Log level: $LOG_LEVEL"
+            
+            - name: Step-level variable
+              env: 
+                LOG_LEVEL: ERROR
+              run: |
+                echo "Log level: $LOG_LEVEL"
+
+            - name: Check variable again
+              run: |
+                echo "Log level: $LOG_LEVEL"
