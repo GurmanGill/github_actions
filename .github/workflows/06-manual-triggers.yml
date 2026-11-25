@@ -1,0 +1,45 @@
+name: Manual Execution
+
+run-name: Execute on ${{ inputs.environment }}
+
+on:
+    workflow-dispatch:
+        inputs:
+            environment:
+                description: Select environment
+                type: choice
+                required: true
+                default: dev
+                options:
+                    - dev
+                    - stage
+                    - prod
+
+            run_tests:
+                description: Execute tests
+                type: boolean
+                default: true
+            
+            batch_size:
+                description: Batch Size
+                type: number
+                default: 1000
+
+jobs:
+    execute:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Inspect Inputs
+              env:
+                TARGET_ENV: ${{ inputs.environment }}
+                RUN_TESTS: ${{ inputs.run_tests }}
+                BATCH_SIZE: ${{ inputs.batch_size }}
+              run: |
+                echo "Environment: $TARGET_ENV"
+                echo "Run tests: $RUN_TESTS"
+                echo "Batch size: $BATCH_SIZE"
+
+            - name: Execute tests
+              if: ${{ inputs.run_tests }}
+              run: echo "Running tests"
