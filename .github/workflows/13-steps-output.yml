@@ -1,0 +1,26 @@
+name: Steps Outputs
+
+on:
+    workflow_dispatch:
+
+jobs:
+    generate:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Generate configuration
+              id: config
+              run: |
+                echo "version=1.0.0" >> $GITHUB_OUTPUT
+                echo "environment=dev" >> $GITHUB_OUPUT
+                echo "deploy=true" >> $GITHUB_OUTPUT
+
+            - name: Read configuration
+              run: |
+                echo "Version: ${{ steps.config.outputs.version }}"
+                echo "Environment: ${{ steps.config.outputs.environment }}"
+                echo "Deploy: ${{ steps.config.outputs.deploy }}"
+
+            - name: Deploy application
+              if: ${{ steps.config.outputs.deploy == 'true' }}
+              run: echo "Deploying application"
