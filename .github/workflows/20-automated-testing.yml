@@ -124,6 +124,5 @@ jobs:
             ${{
               needs.code-quality.result != 'success' ||
               needs.unit-tests.result != 'success' ||
-              needs.spark-tests.result != 'success' 
-            }}
+              needs.spark-tests.result != 'success' }}
           run: exit 1
