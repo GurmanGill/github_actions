@@ -1,6 +1,6 @@
 import pytest
 
-from src.calculator import add, divide
+from src.calculator import add, classify_number, divide
 
 
 def test_add():
@@ -26,3 +26,14 @@ def test_divide_by_zero():
 )
 def test_add_multiple_values(a, b, expected):
     assert add(a, b) == expected
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        (10, "positive"),
+        (-10, "negative"),
+        (0, "zero"),
+    ],
+)
+def test_classify_number(value, expected):
+    assert classify_number(value) == expected
