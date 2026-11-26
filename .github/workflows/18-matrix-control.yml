@@ -25,7 +25,7 @@ jobs:
               run: |
                 echo "Validating $COMPONENT"
 
-                if [ "COMPONENT" == "transformation" ]; then
+                if [ "$COMPONENT" == "transformation" ]; then
                     exit 1
                 fi
 
