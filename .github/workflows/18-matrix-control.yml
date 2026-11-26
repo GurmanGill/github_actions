@@ -22,7 +22,7 @@ jobs:
             - name: Validate component
               env:
                 COMPONENT: ${{ matrix.component }}
-              run:
+              run: |
                 echo "Validting $COMPONENT"
 
                 if [ "COMPONENT" == "transformation" ]; then
