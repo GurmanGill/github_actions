@@ -1,0 +1,35 @@
+name: Dynamix Matrix
+
+on: 
+    workflow_dispatch:
+
+jobs:
+    detect:
+        runs-on: ubuntu-latest
+
+        outputs:
+            components: ${{steps.config.outputs.components}}
+
+        steps:
+            - name: Generate components
+              id: config
+              run: |
+                echo 'components=["ingestion", "api"]' >> $GITHUB_OUTPUT
+
+    validate:
+        runs-on: ubuntu-latest
+        needs: detect
+
+        strategy:
+            fail-fast: false
+
+            matrix:
+                component: ${{ fromJSON(needs.detect.outputs.components)}}
+
+        steps:
+            - name: Validate component
+              env:
+                COMPONENT: ${{matrix.component}}
+
+              run: |
+                echo "Validating $COMPONENT"
