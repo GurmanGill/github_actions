@@ -19,17 +19,17 @@ jobs:
     validate:
         runs-on: ubuntu-latest
 
-    steps:
-        - name: Basic validation
-          run: echo "Validating application"
+        steps:
+            - name: Basic validation
+              run: echo "Validating application"
 
-        - name: Run tests
-          if: ${{ inputs.run_tests}}
-          run: echo "Running tests"
+            - name: Run tests
+              if: ${{ inputs.run_tests}}
+              run: echo "Running tests"
 
-        - name: Production validation
-          if: ${{ inputs.environment == 'prod' }}
-          run: echo "Running additional production checks"
+            - name: Production validation
+              if: ${{ inputs.environment == 'prod' }}
+              run: echo "Running additional production checks"
 
     deploy:
         runs-on: ubuntu-latest
