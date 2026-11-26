@@ -1,19 +1,17 @@
 import pytest
-
 from pyspark.sql import SparkSession
 from pyspark.testing.utils import assertDataFrameEqual
 
 from src.transformations import (
-    filter_valid_records,
     aggregate_weather,
+    filter_valid_records,
 )
 
 
 @pytest.fixture(scope="session")
 def spark():
     session = (
-        SparkSession.builder
-        .master("local[2]")
+        SparkSession.builder.master("local[2]")
         .appName("pytest")
         .config("spark.ui.enabled", "false")
         .getOrCreate()

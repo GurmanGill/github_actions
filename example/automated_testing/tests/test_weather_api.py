@@ -27,8 +27,8 @@ def test_get_weather(mock_get):
 
 @patch("src.weather_api.requests.get")
 def test_api_failure(mock_get):
-    mock_get.return_value.raise_for_status.side_effect = (
-        requests.HTTPError("API unavailable")
+    mock_get.return_value.raise_for_status.side_effect = requests.HTTPError(
+        "API unavailable"
     )
 
     with pytest.raises(requests.HTTPError):
