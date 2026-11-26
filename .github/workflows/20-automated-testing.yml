@@ -93,7 +93,11 @@ jobs:
               env:
                 SPARK_LOCAL_IP: '127.0.0.1'
               run: |
-                python -m pytest tests/test_transformations.py -v
+                python -m pytest tests/test_transformations.py -v \
+                  --cov=src.transformations \
+                  --cov-report=term-missing \
+                  --cov-report=xml:coverage-spark.xml \
+                  --cov-fail-under=80
 
     quality-gate:
       name: Quality Gate
