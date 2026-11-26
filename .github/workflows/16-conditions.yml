@@ -1,0 +1,42 @@
+name: Conditional Execution
+
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                type: choice
+                options:
+                    - dev
+                    - stage
+                    - prod
+                default: dev
+
+            run_tests:
+                type: boolean
+                default: true
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+
+    steps:
+        - name: Basic validation
+          run: echo "Validating application"
+
+        - name: Run tests
+          if: ${{ inputs.run_tests}}
+          run: echo "Running tests"
+
+        - name: Production validation
+          if: ${{ inputs.environment == 'prod' }}
+          run: echo "Running additional production checks"
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: validate
+
+        if: ${{ inputs.environment != 'prod' }}
+
+        steps:
+            - name: Deploy
+              run: echo "Deploying to non-production environment"
