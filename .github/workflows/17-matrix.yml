@@ -38,6 +38,14 @@ jobs:
                     - '3.11'
                     - '3.12'
 
+                exclude:
+                    - os: windows-latest
+                    - python-version: '3.11'
+
+                include:
+                    - os: ubuntu-latest
+                    - python-version: '3.13'
+
         steps:
             - name: Setup Python
               uses: actions/Setup-python@v5
