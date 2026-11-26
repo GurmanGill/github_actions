@@ -6,3 +6,12 @@
 
 # Ruff 
 .ruff_cache
+
+
+# Test and coverage reports
+.coverage
+.coverage.*
+coverage*.xml
+htmlcov/
+.pytest_cache/
+.ruff_cache/
