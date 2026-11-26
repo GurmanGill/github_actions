@@ -61,11 +61,11 @@ jobs:
                 python -m pytest \
                     tests/test_calculator.py \
                     tests/test_weather_api.py -v \
-                    -cov=src.calculator \
-                    -cov=src.weather_api \
-                    -cov=src=term-missing \
-                    -cov-report=xml:coverage-python.xml \
-                    -cov-fail-under=80
+                    --cov=src.calculator \
+                    --cov=src.weather_api \
+                    --cov=src=term-missing \
+                    --cov-report=xml:coverage-python.xml \
+                    --cov-fail-under=80
 
     spark-tests:
         name: Spark Tests
