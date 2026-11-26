@@ -1,0 +1,33 @@
+name: Matrix Execution Control
+
+on:
+    workflow_dispatch:
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            max-parallel: 2
+
+            matrix:
+                component:
+                    - ingestion
+                    - transformation
+                    - reporting
+                    - api
+
+        steps:
+            - name: Validate component
+              env:
+                COMPONENT: ${{ matrix.component }}
+              run:
+                echo "Validting $COMPONENT"
+
+                if [ "COMPONENT" == "transformation" ]; then
+                    exit 1
+                fi
+
+                sleep 2
+                echo "Validation successfull"
