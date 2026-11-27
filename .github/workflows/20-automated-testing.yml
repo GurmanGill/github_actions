@@ -67,6 +67,15 @@ jobs:
                     --cov-report=xml:coverage-python.xml \
                     --cov-fail-under=80
 
+            - name: Upload Python coverage
+              uses: actions/upload-artifact@v4
+              with:
+                name: coverage-python
+                path: example/automated_testing/coverage-python.xml
+                retention-days: 7
+                if-no-files-found: error
+                overwrite: true
+
     spark-tests:
         name: Spark Tests
         runs-on: ubuntu-latest
@@ -98,6 +107,15 @@ jobs:
                   --cov-report=term-missing \
                   --cov-report=xml:coverage-spark.xml \
                   --cov-fail-under=80
+
+            - name: Upload Spark coverage
+              uses: actions/upload-artifact@v4
+              with:
+                name: coverage-spark
+                path: example/automated_testing/coverage-spark.xml
+                retention-days: 7
+                if-no-files-found: error
+                overwrite: true
 
     quality-gate:
       name: Quality Gate
