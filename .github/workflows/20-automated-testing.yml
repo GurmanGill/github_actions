@@ -91,7 +91,9 @@ jobs:
               with:
                 python-version: '3.11'
                 cache: pip
-                cache-dependency-path: example/automated_testing/requirements.txt
+                cache-dependency-path: |
+                  example/automated_testing/requirements.txt
+                  example/automated_testing/requirements-unit.txt
 
             - name: Setup Java
               uses: actions/setup-java@v4
