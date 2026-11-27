@@ -23,22 +23,30 @@ jobs:
               uses: actions/setup-python@v5
               with:
                 python-version: '3.11'
+                cache: pip
+                cache-dependency-path: example/automated_testing/requirements.txt
 
-            - name: Restore pip cache
-              id: pip-cache
-              uses: actions/cache@v4
-              with:
-                path: ~/.cache/pip
-                key: ${{ runner.os }}-python311-pip-${{ hashFiles('example/automated_testing/requirements.txt' )}}
-                restore-keys: |
-                  ${{ runner.os }}-python311-pip-
-
-            - name: Inspect cache
+            - name: Install dependecies
               run: |
-                echo "Cache hit: ${{ steps.pip-cache.outputs.cache-hit }}"
+                python -m pip install -r requirements.txt
 
-                python -m pip cache info
 
-            - name: Install dependencies
-              run: |
-                time python -m pip install -r requirements.txt
+            # Learning the internal of the cache, we don't need implement it this way as workflow already have mechanism to do it
+            # - name: Restore pip cache
+            #   id: pip-cache
+            #   uses: actions/cache@v4
+            #   with:
+            #     path: ~/.cache/pip
+            #     key: ${{ runner.os }}-python311-pip-${{ hashFiles('example/automated_testing/requirements.txt' )}}
+            #     restore-keys: |
+            #       ${{ runner.os }}-python311-pip-
+
+            # - name: Inspect cache
+            #   run: |
+            #     echo "Cache hit: ${{ steps.pip-cache.outputs.cache-hit }}"
+
+            #     python -m pip cache info
+
+            # - name: Install dependencies
+            #   run: |
+            #     time python -m pip install -r requirements.txt
