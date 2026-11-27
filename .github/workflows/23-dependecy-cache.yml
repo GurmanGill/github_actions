@@ -30,6 +30,8 @@ jobs:
               with:
                 path: ~/.cache/pip
                 key: ${{ runner.os }}-python311-pip-${{ hashFiles('example/automated_testing/requirements.txt' )}}
+                restore-keys: |
+                  ${{ runner.os }}-python311-pip-
 
             - name: Inspect cache
               run: |
