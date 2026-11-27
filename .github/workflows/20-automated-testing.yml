@@ -63,7 +63,7 @@ jobs:
                     tests/test_weather_api.py -v \
                     --cov=src.calculator \
                     --cov=src.weather_api \
-                    --cov=src=term-missing \
+                    --cov-report=term-missing \
                     --cov-report=xml:coverage-python.xml \
                     --cov-fail-under=80
 
@@ -145,7 +145,7 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: coverage-${{ matrix.name }}
-            path: examples/automated_testing/reports/
+            path: example/automated_testing/reports/
 
         - name: Inspect downloaded files
           run: |
@@ -196,5 +196,5 @@ jobs:
               needs.code-quality.result != 'success' ||
               needs.unit-tests.result != 'success' ||
               needs.spark-tests.result != 'success' ||
-              needs.coverage-gate.results != 'success' }} 
+              needs.coverage-gate.result != 'success' }} 
           run: exit 1
