@@ -166,6 +166,7 @@ jobs:
         - code-quality
         - unit-tests
         - spark-tests
+        - coverage-gate
 
       if: ${{ !cancelled() }}
 
@@ -187,10 +188,13 @@ jobs:
 
             echo "| Spark Tests | ${{ needs.spark-tests.result }} |" >> "$GITHUB_STEP_SUMMARY"
 
+            echo "| Coverage Gate | ${{ needs.coverage-gate.result }} |" >> "$GITHUB_STEP_SUMMARY"
+
         - name: Enforce quality gate
           if: >-
             ${{
               needs.code-quality.result != 'success' ||
               needs.unit-tests.result != 'success' ||
-              needs.spark-tests.result != 'success' }}
+              needs.spark-tests.result != 'success' ||
+              needs.coverage-gate.results != 'success' }} 
           run: exit 1
