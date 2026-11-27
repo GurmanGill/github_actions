@@ -117,6 +117,47 @@ jobs:
                 if-no-files-found: error
                 overwrite: true
 
+    coverage-gate:
+      name: Coverage Gate ${{ matrix.name }}
+      runs-on: ubuntu-latest
+
+      needs: [unit-tests, spark-tests]
+
+      strategy:
+        fail-fast: false
+
+        matrix:
+          name:
+            - python
+            - spark
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Setup Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+
+        - name: Download coverage artifact
+          id: download
+          uses: actions/download-artifact@v4
+          with:
+            name: coverage-${{ matrix.name }}
+            path: examples/automated_testing/reports/
+
+        - name: Inspect downloaded files
+          run: |
+            echo "Path: ${{ steps.download.outputs.download-path }}"
+            ls -la reports/
+
+        - name: Validate coverage
+          run: |
+            python scripts/validate_coverage.py \
+              --report reports/coverage-${{ matrix.name }}.xml \
+              --threshold 80
+
     quality-gate:
       name: Quality Gate
       runs-on: ubuntu-latest
